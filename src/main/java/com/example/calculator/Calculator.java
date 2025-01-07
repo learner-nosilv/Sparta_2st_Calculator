@@ -153,10 +153,11 @@ public class Calculator {
                     break;
                 case 4:
                     System.out.print("\t"+a + " ÷ " + b + " = ");
-                    try {
-                        System.out.println((double) a / b);
-                    } catch (ArithmeticException e) {
+                    if (b==0) {
                         System.out.println("\t\t[ERR] 잘못된 결과: 0으로 나눌 수 없습니다!");
+                    }
+                    else {
+                        System.out.println((double) a / b);
                     }
                     break;
             }
