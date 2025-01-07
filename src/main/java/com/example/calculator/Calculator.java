@@ -50,7 +50,7 @@ public class Calculator {
             // 첫번째 값 입력받기
             while (true) {
                 System.out.print("\t[1] 첫번째 수를 입력하세요: "); // 개행하지 않을 것이므로 print 사용
-                input = my_scanner.nextLine();  // 한 줄 입력받기
+                input = my_scanner.nextLine(); // 한 줄 입력받기
 
                 // 대소문자 구분없이 exit 입력시 종료
                 if (input.equalsIgnoreCase("exit")) {
