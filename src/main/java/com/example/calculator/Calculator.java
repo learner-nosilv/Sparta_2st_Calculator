@@ -160,6 +160,12 @@ public class Calculator {
                     }
                     break;
             }
+            System.out.print("이어하시려면 값을 아무거나 입력하세요.('exit' 입력시 즉시 종료): ");
+            input = my_scanner.nextLine();  // 한 줄 입력받기
+            if (input.equalsIgnoreCase("exit")) {
+                System.out.println("계산기를 종료합니다.");
+                return;
+            }
             System.out.println();
         }
     }
