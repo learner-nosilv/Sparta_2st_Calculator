@@ -1,8 +1,8 @@
-package com.example.calculator;
+package com.example.calculatorLv1;
 
 import java.util.Scanner;       // 입력을 위한 Scanner 클래스 호출
 
-public class Calculator {
+public class App {
 
     // 입력(string) → 숫자로 변환&음의정수인지검사(예외처리) → 출력(int): 0 혹은 자연수
     private static int checkNumAndChangeToInt(String input) throws NumberFormatException {
