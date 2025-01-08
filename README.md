@@ -15,6 +15,7 @@
 - User Interface : Console
 - 코드구현에 주로 사용한 관점 : Procedural programming
 - 구현일 : 2025-01-06 (화) ~ 2025-01-07 (수)
+- 목표 달성도 : 30/33 [[세부 문서 링크]](https://github.com/learner-nosilv/sparta_Calculator/issues/10)
 ### 작동 과정
 - 사용자에게 숫자 2개 입력받기(String) → 예외처리 → Int 형변환
   - 예외처리(재입력): 오버(언더)플로우 / 문자입력 / 음수
