@@ -23,17 +23,34 @@ public class App {
         return num;
     }
 
-    // 입력(string) → 숫자로 변환/1~4인지검사(예외처리) → 출력(int): 1, 2, 3, 4
-    private static char checkSymbols(String input) throws NumberFormatException {
-        // 올바른 입력값이 정해져있으므로, if문보다 원하는 구역을 바로 찾아갈 수 있는 case문 선택
-        return switch (input) {
-            case "+", "1" -> '+';
-            case "-", "2" -> '-';
-            case "*", "3" -> '*';
-            case "/", "4" -> '/';
-            // 예외처리
-            default -> throw new NumberFormatException("입력값 '" + input + "'은(는) 올바른 입력값이 아닙니다.");
-        };
+
+    // 정상적인 입력이 들어올 때까지 사용자 입력을 받고, 정상 입력값을 출력하는 함수
+    private static char getSymbols(Scanner sc) {
+        // 정상적인 입력이 들어올 때까지 사용자 입력을 받는 루프
+        while (true) {
+            System.out.print("\t① +  ② -  ③ *  ④/  선택: ");
+            String input = sc.nextLine();
+
+            // 대소문자 구분없이 exit 입력시 프로그램 종료
+            if (input.equalsIgnoreCase("exit")) {
+                System.out.println("계산기를 종료합니다.");
+                System.exit(0);
+            }
+
+            // 정상적인 입력값을 출력하거나 아닌 경우 오류를 알리고 다시 입력받음
+            switch (input) {
+                case "+", "1":
+                    return '+';
+                case "-", "2":
+                    return '-';
+                case "*", "3":
+                    return '*';
+                case "/", "4":
+                    return '/';
+                default:
+                    System.out.println("\t\t[ERR] 잘못된 입력: 선택지 속 기호나 선지번호만 입력하세요.");
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -94,25 +111,7 @@ public class App {
 
             // 2. 사칙연산 기호를 입력받는 단계
             System.out.println("Stage 2. 사칙연산 기호 입력받기: 아래의 기호 혹은 선지번호를 입력하세요.");
-            while (true) {
-                System.out.print("\t① +  ② -  ③ *  ④/  기호 선택: ");
-
-                input = myScanner.nextLine();
-
-                // 대소문자 구분없이 exit 입력시 종료
-                if (input.equalsIgnoreCase("exit")) {
-                    System.out.println("계산기를 종료합니다.");
-                    return;
-                }
-
-                // 입력값을 정수로 전환 후 루프탈출 - 아닐시 예외던짐
-                try {
-                    symbol = checkSymbols(input);
-                    break;  // 올바른 입력시에만 탈출
-                } catch (NumberFormatException e) {
-                    System.out.println("\t\t[ERR] 잘못된 입력: " + e.getMessage());
-                }
-            }
+            symbol = getSymbols(myScanner);
 
             // 3. 연산 수행 : Calcuator클래스의 객체myCalculator 활용
             System.out.println("Stage 3. 사칙연산 수행");
@@ -155,15 +154,14 @@ public class App {
                             System.out.println("\t\t[Err] 정상적인 숫자값을 입력해주세요");
                         }
                     }
-                }
-                else if (input.equals("3") || input.equals("제거")) {
-                        System.out.print("\t가장 오래된 결과값을 제거합니다 : ");
-                        if (myCalculator.deleteResultOldest()) {
-                            System.out.println("\t성공하였습니다.");
-                        } else
-                            System.out.println("\t비어있습니다. 제거에 실패하였습니다.");
-                    } else break;
-                }
+                } else if (input.equals("3") || input.equals("제거")) {
+                    System.out.print("\t가장 오래된 결과값을 제거합니다 : ");
+                    if (myCalculator.deleteResultOldest()) {
+                        System.out.println("\t성공하였습니다.");
+                    } else
+                        System.out.println("\t비어있습니다. 제거에 실패하였습니다.");
+                } else break;
             }
         }
     }
+}
