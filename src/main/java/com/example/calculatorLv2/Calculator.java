@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class Calculator {
     // 연산 결과를 저장하는 컬렉션
-    LinkedList<Double> resultList = new LinkedList<>();
+    private LinkedList<Double> resultList = new LinkedList<>();
 
     // 연산을 수행하고 결과값을 컬렉션에 저장 및 반환하는 메서드
     public double calculate(int a, int b, char operator) {
@@ -42,5 +42,14 @@ public class Calculator {
         }
         resultList.add(result);
         return result;
+    }
+
+    // 필드에 간접 접근하여 가장 오래된 결과값을 가져오는 Getter 메서드
+    public double getResultOldest(){
+        if (resultList.peekFirst() != null)     // 안전한 조회 peekFirst
+            return resultList.peekFirst();
+        else
+            System.out.println("비어있습니다.");
+        return 0;
     }
 }
