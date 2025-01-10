@@ -45,12 +45,11 @@ public class Calculator {
     }
 
     // 필드에 간접 접근하여 가장 오래된 결과값을 가져오는 Getter 메서드
-    public double getResultOldest() {
+    public double getResultOldest() throws Exception {
         if (resultList.peekFirst() != null)     // 안전한 조회 peekFirst
             return resultList.peekFirst();
-        else
-            System.out.println("비어있습니다.");
-        return 0;
+        else    // 비어있는 경우
+            throw new Exception();
     }
 
     // 필드에 간접 접근하여 가장 오래된 결과값을 수정하는 Setter 메서드
@@ -62,7 +61,6 @@ public class Calculator {
             resultList.set(0, newResult);
             return true;
         }
-
     }
 
     // 필드에 간접 접근하여 가장 오래된 결과값을 제거하는 메서드

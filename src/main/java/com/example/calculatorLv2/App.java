@@ -137,7 +137,14 @@ public class App {
                     return;
                 }
                 else if (input.equals("1") || input.equals("확인")){
-                    System.out.println("가장 오래된 결과값을 확인합니다: " + myCalculator.getResultOldest());
+                    System.out.println("가장 오래된 결과값을 확인합니다.");
+                    try {
+                        double temp = myCalculator.getResultOldest();
+                        System.out.println("가장 오래된 결과값은 [" + temp + "]입니다.");
+                    }
+                    catch(Exception e) {
+                        System.out.println("비어있습니다.");
+                    }
                 }
                 else if (input.equals("2") || input.equals("수정")) {
                     System.out.print("가장 오래된 결과값을 어떤 값으로 수정할까요 >> ");
