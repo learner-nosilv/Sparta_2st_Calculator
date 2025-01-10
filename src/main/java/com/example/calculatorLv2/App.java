@@ -17,20 +17,20 @@ public class App {
             }
         }
         if (num < 0) {
-                throw new NumberFormatException("입력값 '" + input + "'은(는) 음의 정수 입니다.");
+            throw new NumberFormatException("입력값 '" + input + "'은(는) 음의 정수 입니다.");
 
         }
         return num;
     }
 
     // 입력(string) → 숫자로 변환/1~4인지검사(예외처리) → 출력(int): 1, 2, 3, 4
-    private static int checkSymbols(String input) throws NumberFormatException {
+    private static char checkSymbols(String input) throws NumberFormatException {
         // 올바른 입력값이 정해져있으므로, if문보다 원하는 구역을 바로 찾아갈 수 있는 case문 선택
         return switch (input) {
-            case "+", "1" -> 1;
-            case "-", "2" -> 2;
-            case "*", "3" -> 3;
-            case "/", "4" -> 4;
+            case "+", "1" -> '+';
+            case "-", "2" -> '-';
+            case "*", "3" -> '*';
+            case "/", "4" -> '/';
             // 예외처리
             default -> throw new NumberFormatException("입력값 '" + input + "'은(는) 올바른 입력값이 아닙니다.");
         };
@@ -38,9 +38,10 @@ public class App {
 
     public static void main(String[] args) {
         Scanner my_scanner = new Scanner(System.in);    // Scanner 객체 생성
+        Calculator myCalculator = new Calculator();
         String input;           // 입력값 저장
         int a, b;               // 예외처리를 넘긴 유효한 숫자 저장
-        int symbol;             // 예외처리를 넘긴 유효한 사칙연산 선지번호 저장
+        char symbol;             // 예외처리를 넘긴 유효한 사칙연산 선지번호 저장
 
         while (true) {
             System.out.println("---[Calculator]---\t* 'exit' 입력시 즉시 종료됩니다.");
@@ -112,55 +113,16 @@ public class App {
                 }
             }
 
-            // 3. 연산 수행
+            // 3. 연산 수행 : Calcuator클래스의 객체myCalculator 활용
             System.out.println("Stage 3. 사칙연산 수행");
-            switch (symbol) {
-                case 1:
-                    System.out.print("\t"+a + " + " + b + " = ");
-                    try {
-                        // 유사 Math.addExact(a, b); 과 같음
-                        if (a > (Integer.MAX_VALUE - b)) {
-                            throw new ArithmeticException("오버플로우 발생 가능성");
-                        }
-                        System.out.println(a + b);
-                    } catch (ArithmeticException e) {
-                        System.out.println("\t\t[ERR] 잘못된 결과: " + e.getMessage());
-                    }
-                    break;
-                case 2:
-                    System.out.print("\t"+a + " - " + b + " = ");
-                    try {
-                        // 유사 Math.subtractExact(a, b); 과 같음
-                        if (a < (Integer.MIN_VALUE + b)) {
-                            throw new ArithmeticException("언더플로우 발생 가능성");
-                        }
-                        System.out.println(a - b);
-                    } catch (ArithmeticException e) {
-                        System.out.println("\t\t[ERR] 잘못된 결과: " + e.getMessage());
-                    }
-                    break;
-                case 3:
-                    System.out.print("\t"+a + " × " + b + " = ");
-                    try {
-                        // 유사 Math.multiplyExact();
-                        if (a > Integer.MAX_VALUE / b) {
-                            throw new ArithmeticException("오버플로우 발생 가능성");
-                        }
-                        System.out.println(a * b);
-                    } catch (ArithmeticException e) {
-                        System.out.println("\t\t[ERR] 잘못된 결과: " + e.getMessage());
-                    }
-                    break;
-                case 4:
-                    System.out.print("\t"+a + " ÷ " + b + " = ");
-                    if (b==0) {
-                        System.out.println("\t\t[ERR] 잘못된 결과: 0으로 나눌 수 없습니다!");
-                    }
-                    else {
-                        System.out.println((double) a / b);
-                    }
-                    break;
+            System.out.print("\t" + a + ' ' + symbol + ' ' + b + " = " );
+            try {
+                System.out.println(myCalculator.calculate(a, b, symbol));
             }
+            catch (ArithmeticException e) {
+                System.out.println("[ERR] 잘못된 결과: " + e.getMessage());
+            }
+            // 4. 재시작할지 확인
             System.out.print("이어하시려면 값을 아무거나 입력하세요.('exit' 입력시 즉시 종료): ");
             input = my_scanner.nextLine();  // 한 줄 입력받기
             if (input.equalsIgnoreCase("exit")) {
