@@ -56,6 +56,7 @@ public class App {
                 // 대소문자 구분없이 exit 입력시 종료
                 if (input.equalsIgnoreCase("exit")) {
                     System.out.println("계산기를 종료합니다.");
+                    myScanner.close();
                     return;
                 }
 
