@@ -124,15 +124,12 @@ public class App {
             }
             // 4. 재시작할지/가장 오래된 결과값을 확인/수정/제거할지 확인
             while(true) {
-                System.out.println("새로운 계산을 시작하시려면 값을 아무거나 입력하세요.");
-                System.out.println("  'exit' 입력시 즉시 종료");
-                System.out.println("  '1' 혹은 '확인' 입력시 가장 오래된 결과값 출력");
-                System.out.println("  '2' 혹은 '수정' 입력시 가장 오래된 결과값 수정");
-                System.out.println("  '3' 혹은 '제거' 입력시 가장 오래된 결과값 제거");
-                System.out.print(">> ");
+                System.out.println("Stage 4. 다음 할 일 선택");
+                System.out.println("\t① '확인' : 가장 오래된 결과값 확인\t② '수정': 수정\t③ '제거': 제거\t④ 'exit' : 계산기 종료\t⑤ 그 외 모든 값 : 계산기 재시작");
+                System.out.print("\t다음 할 일을 번호나 단어로 입력하세요 >> ");
                 input = myScanner.nextLine();  // 한 줄 입력받기
 
-                if (input.equalsIgnoreCase("exit")) {
+                if (input.equalsIgnoreCase("exit") || input.equals("4")) {
                     System.out.println("계산기를 종료합니다.");
                     return;
                 }
