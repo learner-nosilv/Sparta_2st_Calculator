@@ -45,7 +45,7 @@ public class Calculator {
     }
 
     // 필드에 간접 접근하여 가장 오래된 결과값을 가져오는 Getter 메서드
-    public double getResultOldest(){
+    public double getResultOldest() {
         if (resultList.peekFirst() != null)     // 안전한 조회 peekFirst
             return resultList.peekFirst();
         else
@@ -54,16 +54,23 @@ public class Calculator {
     }
 
     // 필드에 간접 접근하여 가장 오래된 결과값을 수정하는 Setter 메서드
-    public void setResultOldest(double newResult){
-        if (resultList.isEmpty())               // 비어있는지 체크 (peekFirst 대신 사용)
+    public boolean setResultOldest(double newResult) {
+        if (resultList.isEmpty()) {             // 비어있는지 체크 (peekFirst 대신 사용)
             System.out.println("비어있습니다.");
-        else
+            return false;
+        } else {
             resultList.set(0, newResult);
+            return true;
+        }
+
     }
 
     // 필드에 간접 접근하여 가장 오래된 결과값을 제거하는 메서드
-    public void deleteResultOldest(){
-        if (resultList.pollFirst() == null)      // pollFirst: 안전한 제거(비어있을시 null반환)
+    public boolean deleteResultOldest() {
+        if (resultList.pollFirst() == null) {     // pollFirst: 안전한 제거(비어있을시 null반환)
             System.out.println("비어있습니다.");
+            return false;
+        }
+        return true;
     }
 }
