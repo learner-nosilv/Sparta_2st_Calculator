@@ -66,9 +66,9 @@ public class App {
 
     // Stage4. 정상적인 계산기 명령어 선택번호 입력이 들어올 때까지 사용자 입력을 받고, 정상 입력값을 출력하는 함수
     private static int getNextSteps(Scanner sc) {
+        System.out.println("\t① '확인' : 가장 오래된 결과값 확인\t② '수정': 수정\t③ '제거': 제거\t④ 'exit' : 계산기 종료\t⑤ 그 외 모든 값 : 계산기 재시작");
         while (true) {
-            System.out.println("\t① '확인' : 가장 오래된 결과값 확인\t② '수정': 수정\t③ '제거': 제거\t④ 'exit' : 계산기 종료\t⑤ 그 외 모든 값 : 계산기 재시작");
-            System.out.print("\t다음 할 일을 번호나 단어로 입력하세요 >> ");
+            System.out.print("\t다음 할 일 선택: ");
             String input = sc.nextLine();  // 한 줄 입력받기
 
             // 대소문자 구분없이 exit 입력시 프로그램 종료
@@ -98,6 +98,7 @@ public class App {
         int a, b;               // 예외처리를 넘긴 유효한 숫자 저장
         char symbol;             // 예외처리를 넘긴 유효한 사칙연산 선지번호 저장
 
+        // Stage4. 정상 입력값대로 다음 명령어를 진행하는 구간
         while (true) {
             System.out.println("---[Calculator]---\t* 'exit' 입력시 즉시 종료됩니다.");
 
@@ -109,7 +110,7 @@ public class App {
             System.out.println("\t입력값: " + a + ", " + b);
 
             // 2. 사칙연산 기호를 입력받는 단계
-            System.out.println("Stage 2. 사칙연산 기호 입력받기: 아래의 기호 혹은 선지번호를 입력하세요.");
+            System.out.println("Stage 2. 사칙연산 기호 입력받기: 아래의 선지번호 혹은 기호를 입력하세요.");
             symbol = getSymbols(myScanner);
 
             // 3. 연산 수행 : Calcuator 클래스의 객체 myCalculator 활용
@@ -121,12 +122,12 @@ public class App {
                 System.out.println("[ERR] 잘못된 결과: " + e.getMessage());
             }
             // 4. 이후 할 일 선택 : 재시작할지/가장 오래된 결과값을 확인/수정/제거할지 확인
-            System.out.println("Stage 4. 다음 할 일 선택");
+            System.out.println("Stage 4. 다음 할 일 선택: 아래의 선지번호 혹은 단어를 입력하세요.");
             while (true) {
                 int menu = getNextSteps(myScanner);
                 switch (menu) {
                     case 1:
-                        System.out.print("\t가장 오래된 결과값: ");
+                        System.out.print("\t\t가장 오래된 결과값: ");
                         try {
                             double temp = myCalculator.getResultOldest();
                             System.out.println(temp);
@@ -136,13 +137,13 @@ public class App {
                         break;
                     case 2:
                         while (true) {
-                            System.out.print("\t가장 오래된 결과값을 어떤 값으로 수정할까요 >> ");
+                            System.out.print("\t\t가장 오래된 결과값을 어떤 값으로 수정할까요 >> ");
                             if (myScanner.hasNextDouble()) {
                                 double temp = myScanner.nextDouble();
                                 myScanner.nextLine();   // if 문에서 읽었던 버퍼 비우기
                                 if (myCalculator.setResultOldest(temp))
-                                    System.out.println("\t수정에 성공하였습니다.");
-                                else System.out.println("\t비어있습니다. 수정에 실패하였습니다.");
+                                    System.out.println("\t\t수정에 성공하였습니다.");
+                                else System.out.println("\t\t비어있습니다. 수정에 실패하였습니다.");
                                 break;
                             } else {
                                 myScanner.nextLine();   // if 문에서 읽었던 버퍼 비우기
@@ -151,11 +152,11 @@ public class App {
                         }
                         break;
                     case 3:
-                        System.out.print("\t가장 오래된 결과값을 제거합니다 : ");
+                        System.out.print("\t\t가장 오래된 결과값을 제거합니다 : ");
                         if (myCalculator.deleteResultOldest()) {
-                            System.out.println("\t성공하였습니다.");
+                            System.out.println("성공하였습니다.");
                         } else
-                            System.out.println("\t비어있습니다. 제거에 실패하였습니다.");
+                            System.out.println("비어있습니다. 제거에 실패하였습니다.");
                         break;
                     case 0:
                         break;
