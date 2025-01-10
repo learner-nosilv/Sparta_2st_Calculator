@@ -52,4 +52,12 @@ public class Calculator {
             System.out.println("비어있습니다.");
         return 0;
     }
+
+    // 필드에 간접 접근하여 가장 오래된 결과값을 수정하는 Setter 메서드
+    public void setResultOldest(double newResult){
+        if (resultList.peekFirst() != null)     // 안전한 조회 peekFirst
+            resultList.set(0, newResult);
+        else
+            System.out.println("비어있습니다.");
+    }
 }
