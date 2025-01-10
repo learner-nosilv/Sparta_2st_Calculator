@@ -122,14 +122,44 @@ public class App {
             catch (ArithmeticException e) {
                 System.out.println("[ERR] 잘못된 결과: " + e.getMessage());
             }
-            // 4. 재시작할지 확인
-            System.out.print("이어하시려면 값을 아무거나 입력하세요.('exit' 입력시 즉시 종료): ");
-            input = my_scanner.nextLine();  // 한 줄 입력받기
-            if (input.equalsIgnoreCase("exit")) {
-                System.out.println("계산기를 종료합니다.");
-                return;
+            // 4. 재시작할지/가장 오래된 결과값을 확인/수정/제거할지 확인
+            while(true) {
+                System.out.println("새로운 계산을 시작하시려면 값을 아무거나 입력하세요.");
+                System.out.println("  'exit' 입력시 즉시 종료");
+                System.out.println("  '1' 혹은 '확인' 입력시 가장 오래된 결과값 출력");
+                System.out.println("  '2' 혹은 '수정' 입력시 가장 오래된 결과값 수정");
+                System.out.println("  '3' 혹은 '제거' 입력시 가장 오래된 결과값 제거");
+                System.out.print(">> ");
+                input = my_scanner.nextLine();  // 한 줄 입력받기
+
+                if (input.equalsIgnoreCase("exit")) {
+                    System.out.println("계산기를 종료합니다.");
+                    return;
+                }
+                else if (input.equals("1") || input.equals("확인")){
+                    System.out.println("가장 오래된 결과값을 확인합니다: " + myCalculator.getResultOldest());
+                }
+                else if (input.equals("2") || input.equals("수정")) {
+                    System.out.print("가장 오래된 결과값을 어떤 값으로 수정할까요 >> ");
+                    try {
+                        double temp = my_scanner.nextDouble();
+                        if (myCalculator.setResultOldest(temp))
+                            System.out.println("수정에 성공하였습니다.");
+                        else System.out.println("수정에 실패하였습니다.");
+                    } catch (NumberFormatException e) {
+                        System.out.println("[Err] 제대로 된 값을 입력해주세요");
+                    }
+                }
+                else if (input.equals("3") || input.equals("제거")) {
+                    System.out.println("가장 오래된 결과값을 제거합니다.");
+                    if(myCalculator.deleteResultOldest()){
+                        System.out.println("제거에 성공하였습니다.");
+                    }
+                    else
+                        System.out.println("제거에 실패하였습니다.");
+                }
+                else break;
             }
-            System.out.println();
         }
     }
 }
