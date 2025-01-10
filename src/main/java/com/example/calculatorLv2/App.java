@@ -143,6 +143,7 @@ public class App {
                     System.out.print("가장 오래된 결과값을 어떤 값으로 수정할까요 >> ");
                     try {
                         double temp = myScanner.nextDouble();
+                        myScanner.nextLine();   // 버퍼 비우기
                         if (myCalculator.setResultOldest(temp))
                             System.out.println("수정에 성공하였습니다.");
                         else System.out.println("수정에 실패하였습니다.");
