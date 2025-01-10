@@ -122,7 +122,7 @@ public class App {
             } catch (ArithmeticException e) {
                 System.out.println("[ERR] 잘못된 결과: " + e.getMessage());
             }
-            // 4. 재시작할지/가장 오래된 결과값을 확인/수정/제거할지 확인
+            // 4. 이후 할 일 선택 : 재시작할지/가장 오래된 결과값을 확인/수정/제거할지 확인
             while (true) {
                 System.out.println("Stage 4. 다음 할 일 선택");
                 System.out.println("\t① '확인' : 가장 오래된 결과값 확인\t② '수정': 수정\t③ '제거': 제거\t④ 'exit' : 계산기 종료\t⑤ 그 외 모든 값 : 계산기 재시작");
