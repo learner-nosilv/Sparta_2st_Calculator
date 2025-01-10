@@ -116,15 +116,14 @@ public class App {
 
             // 3. 연산 수행 : Calcuator클래스의 객체myCalculator 활용
             System.out.println("Stage 3. 사칙연산 수행");
-            System.out.print("\t" + a + ' ' + symbol + ' ' + b + " = " );
+            System.out.print("\t" + a + ' ' + symbol + ' ' + b + " = ");
             try {
                 System.out.println(myCalculator.calculate(a, b, symbol));
-            }
-            catch (ArithmeticException e) {
+            } catch (ArithmeticException e) {
                 System.out.println("[ERR] 잘못된 결과: " + e.getMessage());
             }
             // 4. 재시작할지/가장 오래된 결과값을 확인/수정/제거할지 확인
-            while(true) {
+            while (true) {
                 System.out.println("Stage 4. 다음 할 일 선택");
                 System.out.println("\t① '확인' : 가장 오래된 결과값 확인\t② '수정': 수정\t③ '제거': 제거\t④ 'exit' : 계산기 종료\t⑤ 그 외 모든 값 : 계산기 재시작");
                 System.out.print("\t다음 할 일을 번호나 단어로 입력하세요 >> ");
@@ -133,39 +132,38 @@ public class App {
                 if (input.equalsIgnoreCase("exit") || input.equals("4")) {
                     System.out.println("계산기를 종료합니다.");
                     return;
-                }
-                else if (input.equals("1") || input.equals("확인")){
-                    System.out.println("가장 오래된 결과값을 확인합니다.");
+                } else if (input.equals("1") || input.equals("확인")) {
+                    System.out.print("\t가장 오래된 결과값: ");
                     try {
                         double temp = myCalculator.getResultOldest();
-                        System.out.println("가장 오래된 결과값은 [" + temp + "]입니다.");
-                    }
-                    catch(Exception e) {
+                        System.out.println(temp);
+                    } catch (Exception e) {
                         System.out.println("비어있습니다.");
                     }
-                }
-                else if (input.equals("2") || input.equals("수정")) {
-                    System.out.print("가장 오래된 결과값을 어떤 값으로 수정할까요 >> ");
-                    try {
-                        double temp = myScanner.nextDouble();
-                        myScanner.nextLine();   // 버퍼 비우기
-                        if (myCalculator.setResultOldest(temp))
-                            System.out.println("수정에 성공하였습니다.");
-                        else System.out.println("수정에 실패하였습니다.");
-                    } catch (NumberFormatException e) {
-                        System.out.println("[Err] 제대로 된 값을 입력해주세요");
+                } else if (input.equals("2") || input.equals("수정")) {
+                    while (true) {
+                        System.out.print("\t가장 오래된 결과값을 어떤 값으로 수정할까요 >> ");
+                        if (myScanner.hasNextDouble()) {
+                            double temp = myScanner.nextDouble();
+                            myScanner.nextLine();   // if 문에서 읽었던 버퍼 비우기
+                            if (myCalculator.setResultOldest(temp))
+                                System.out.println("\t수정에 성공하였습니다.");
+                            else System.out.println("\t비어있습니다. 수정에 실패하였습니다.");
+                            break;
+                        } else {
+                            myScanner.nextLine();   // if 문에서 읽었던 버퍼 비우기
+                            System.out.println("\t\t[Err] 정상적인 숫자값을 입력해주세요");
+                        }
                     }
                 }
                 else if (input.equals("3") || input.equals("제거")) {
-                    System.out.println("가장 오래된 결과값을 제거합니다.");
-                    if(myCalculator.deleteResultOldest()){
-                        System.out.println("제거에 성공하였습니다.");
-                    }
-                    else
-                        System.out.println("제거에 실패하였습니다.");
+                        System.out.print("\t가장 오래된 결과값을 제거합니다 : ");
+                        if (myCalculator.deleteResultOldest()) {
+                            System.out.println("\t성공하였습니다.");
+                        } else
+                            System.out.println("\t비어있습니다. 제거에 실패하였습니다.");
+                    } else break;
                 }
-                else break;
             }
         }
     }
-}
