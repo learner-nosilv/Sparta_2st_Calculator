@@ -4,27 +4,38 @@ import java.util.Scanner;
 
 public class App {
 
-    // 입력(string) → 숫자로 변환&음의정수인지검사(예외처리) → 출력(int): 0 혹은 자연수
-    private static int checkNumAndChangeToInt(String input) throws NumberFormatException {
+    // Stage1. 정상적인 숫자 입력이 들어올 때까지 사용자 입력을 받고, 정상 입력값을 출력하는 함수
+    private static int getInts(Scanner sc, int n){
+        // 정상적인 숫자를 할당할 변수
         int num;
-        try {
-            num = Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            if (input.matches(".*[a-zA-Z].*")) {
-                throw new NumberFormatException("입력값 '" + input + "'은(는) 숫자가 아닙니다.");
-            } else {
-                throw new NumberFormatException("Overflow 되었습니다.");
+
+        // n번째 값 입력받기
+        while (true) {
+            System.out.print("\t["+n+"]번째 수를 입력하세요(0 혹은 자연수): "); // 개행하지 않을 것이므로 print 사용
+            String input = sc.nextLine(); // 한 줄 입력받기
+
+            // 대소문자 구분없이 exit 입력시 프로그램 종료
+            if (input.equalsIgnoreCase("exit")) {
+                System.out.println("계산기를 종료합니다.");
+                System.exit(0);
+            }
+            try {
+                num = Integer.parseInt(input);
+                if(num>=0) return num;
+                else{
+                    System.out.println("\t\t[ERR] 잘못된 입력: 입력값 '" + input + "'은(는) 음수입니다.");
+                }
+            } catch (NumberFormatException e) {
+                if (input.matches(".*[a-zA-Z].*")) {
+                    System.out.println("\t\t[ERR] 잘못된 입력: 입력값 '" + input + "'은(는) 숫자가 아닙니다.");
+                } else {
+                    System.out.println("\t\t[ERR] 잘못된 입력: Overflow 되었습니다.");
+                }
             }
         }
-        if (num < 0) {
-            throw new NumberFormatException("입력값 '" + input + "'은(는) 음의 정수 입니다.");
-
-        }
-        return num;
     }
 
-
-    // 정상적인 입력이 들어올 때까지 사용자 입력을 받고, 정상 입력값을 출력하는 함수
+    // Stage2. 정상적인 부호선택 입력이 들어올 때까지 사용자 입력을 받고, 정상 입력값을 출력하는 함수
     private static char getSymbols(Scanner sc) {
         // 정상적인 입력이 들어올 때까지 사용자 입력을 받는 루프
         while (true) {
@@ -65,48 +76,9 @@ public class App {
 
             // 1. 2개의 값을 입력받는 단계
             System.out.println("Stage 1. 0 혹은 자연수 2개 입력 받기");
-            // 첫번째 값 입력받기
-            while (true) {
-                System.out.print("\t[1] 첫번째 수를 입력하세요: "); // 개행하지 않을 것이므로 print 사용
-                input = myScanner.nextLine(); // 한 줄 입력받기
-
-                // 대소문자 구분없이 exit 입력시 종료
-                if (input.equalsIgnoreCase("exit")) {
-                    System.out.println("계산기를 종료합니다.");
-                    myScanner.close();
-                    return;
-                }
-
-                // 입력값을 정수로 전환 후 루프탈출 - 아닐시 예외던짐
-                try {
-                    a = checkNumAndChangeToInt(input);
-                    break;
-                } catch (NumberFormatException e) {
-                    System.out.println("\t\t[ERR] 잘못된 입력: " + e.getMessage());
-                }
-            }
-
-            // 두번째 값 입력받기
-            while (true) {
-                System.out.print("\t[2] 두번째 수를 입력하세요: "); // 개행하지 않을 것이므로 print 사용
-                input = myScanner.nextLine();  // 한 줄 입력받기
-
-                // 대소문자 구분없이 exit 입력시 종료
-                if (input.equalsIgnoreCase("exit")) {
-                    System.out.println("계산기를 종료합니다.");
-                    return;
-                }
-
-                // 입력값을 정수로 전환 후 루프탈출 - 아닐시 예외던짐
-                try {
-                    b = checkNumAndChangeToInt(input);
-                    break;
-                } catch (NumberFormatException e) {
-                    System.out.println("\t\t[ERR] 잘못된 입력: " + e.getMessage());
-                }
-            }
-
-            // 입력한 숫자 다시 확인해주기
+            a = getInts(myScanner, 1);
+            b= getInts(myScanner, 2);
+                // 입력한 숫자 재확인
             System.out.println("\t입력값: " + a + ", " + b);
 
             // 2. 사칙연산 기호를 입력받는 단계
