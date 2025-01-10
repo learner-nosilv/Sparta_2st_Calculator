@@ -85,12 +85,15 @@
 
 ### 작동 예시
 - **Normal** 정상적인 입력에서의 작동예시
- ![lv2normal.gif](img/lv2normal.gif)
+
+![lv2normal.gif](img/lv2normal.gif)
 
 
 - **Exception** 리스트가 빈 상황에서, 읽기/수정/제거 명령을 할 때의 작동예시
-  <img src="img/lv2Exception1.png"  width="80%"/>
+
+<img src="img/lv2Exception1.png"  width="80%"/>
 
 
 - **Exception** 리스트를 수정하는 상황에서, 수정값을 입력받을 때의 예외상황
--   <img src="img/lv2Exception2.png"  width="65%"/>
+
+<img src="img/lv2Exception2.png"  width="65%"/>
