@@ -11,43 +11,31 @@ public class Calculator {
         double result = 0;
         switch (operator) {
             case '+', '1':
-                try {
-                    // 유사 Math.addExact(a, b); 과 같음
-                    if (a > (Integer.MAX_VALUE - b)) {
-                        throw new ArithmeticException("오버플로우 발생 가능성");
-                    }
-                    result = a + b; // 자동형변환
-                } catch (ArithmeticException e) {
-                    System.out.println("\t\t[ERR] 잘못된 결과: " + e.getMessage());
+                // 유사 Math.addExact(a, b); 과 같음
+                if (a > (Integer.MAX_VALUE - b)) {
+                    throw new ArithmeticException("오버플로우 발생 가능성");
                 }
+                result = a + b; // 자동형변환
                 break;
             case '-', '2':
-                try {
-                    // 유사 Math.subtractExact(a, b); 과 같음
-                    if (a < (Integer.MIN_VALUE + b)) {
-                        throw new ArithmeticException("언더플로우 발생 가능성");
-                    }
-                    result = a - b; // 자동형변환
-                } catch (ArithmeticException e) {
-                    System.out.println("\t\t[ERR] 잘못된 결과: " + e.getMessage());
+                // 유사 Math.subtractExact(a, b); 과 같음
+                if (a < (Integer.MIN_VALUE + b)) {
+                    throw new ArithmeticException("언더플로우 발생 가능성");
                 }
+                result = a - b; // 자동형변환
                 break;
             case '*', '3':
-                try {
-                    // 유사 Math.multiplyExact();
-                    if (a > Integer.MAX_VALUE / b) {
-                        throw new ArithmeticException("오버플로우 발생 가능성");
-                    }
-                    result = a * b;
-                } catch (ArithmeticException e) {
-                    System.out.println("\t\t[ERR] 잘못된 결과: " + e.getMessage());
+                // 유사 Math.multiplyExact();
+                if (a > Integer.MAX_VALUE / b) {
+                    throw new ArithmeticException("오버플로우 발생 가능성");
                 }
+                result = a * b;
+
                 break;
             case '/', '4':
-                if (b==0) {
-                    System.out.println("\t\t[ERR] 잘못된 결과: 0으로 나눌 수 없습니다!");
-                }
-                else {
+                if (b == 0) {
+                    throw new ArithmeticException("0으로 나눌 수 없습니다!");
+                } else {
                     result = (double) a / b;    // 강제형변환
                 }
                 break;
